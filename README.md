@@ -974,3 +974,100 @@ Sent mail via SendGrid to test@example.com
 ✅ You can add new mailers anytime.
 ✅ Your code is flexible, testable, and maintainable.
 ```
+
+
+### 15. 🧠 What is Encapsulation?
+
+```
+Encapsulation means hiding the internal details of how a class works
+and protecting the data (properties) from being accessed or changed directly from outside.
+```
+- In simple words:
+```
+“Wrap data and methods that work on that data into one unit (a class),
+and control how that data is accessed.”
+```
+
+#### 🧱 Real-Life Example
+
+- Think of a bank account:
+
+- You can deposit or withdraw money.
+
+- But you can’t directly change the account balance in the bank’s computer.
+
+- You have to go through proper methods (deposit/withdraw).
+- That’s encapsulation — your balance is protected, not public.
+
+###### 💻 PHP Example — Without Encapsulation (❌ Bad)
+```php
+class BankAccount {
+    public $balance = 0; // ❌ Public property (anyone can change it)
+}
+
+$acc = new BankAccount();
+$acc->balance = -5000; // ❌ No control, invalid data
+echo $acc->balance; // -5000
+
+
+This is dangerous — we allowed direct access to the data.
+```
+##### ✅ With Encapsulation (Good Practice)
+```php
+class BankAccount {
+    private $balance = 0; // 🔒 Private = hidden from outside
+
+    // ✅ Method to deposit money safely
+    public function deposit($amount) {
+        if ($amount > 0) {
+            $this->balance += $amount;
+        }
+    }
+
+    // ✅ Method to withdraw money safely
+    public function withdraw($amount) {
+        if ($amount > 0 && $amount <= $this->balance) {
+            $this->balance -= $amount;
+        }
+    }
+
+    // ✅ Method to view balance
+    public function getBalance() {
+        return $this->balance;
+    }
+}
+
+// 🎯 Usage
+$acc = new BankAccount();
+$acc->deposit(1000);
+$acc->withdraw(300);
+echo "Balance: " . $acc->getBalance();
+
+🧾 Output:
+Balance: 700
+```
+
+#### 🔍 What Happened Here
+- Concept	Description
+- $balance	Declared private — can’t be changed directly from outside.
+- deposit() & withdraw()	Provide controlled access to modify balance.
+- getBalance()	Public method to read data safely.
+
+#### ⚙️ Access Modifiers (Visibility Keywords)
+- Keyword	Who can access	Use case
+- public	Anywhere	When everyone can access it
+- protected	Same class + child classes	For inheritance
+- private	Only within the same class	To hide data
+
+#### 💡 Why Encapsulation Matters
+- Benefit	Description
+- Data protection	Prevents unwanted or invalid changes to variables
+- Control	You control how others use your class
+- Flexibility	You can change internal logic without affecting outside code
+- Maintainability	Cleaner, more reliable, and less error-prone code
+
+#### 🧩 Real-world Analogy
+- Real World	Programming
+- ATM machine	BankAccount class
+- You can only press buttons (public methods)	You can’t open the machine (private data)
+- Machine checks limits and rules internally	Class validates input internally
